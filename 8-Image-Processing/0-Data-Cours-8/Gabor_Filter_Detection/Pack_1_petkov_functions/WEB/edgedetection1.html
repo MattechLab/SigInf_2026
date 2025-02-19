@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="M.B. Wieling and N. Petkov">
+   <meta name="Description" content="Gabor filter for image processing and computer vision">
+   <meta name="Keywords" content="gabor, Gabor, gabor filter, gabor function, Gabor filter, Gabor function, edge detection, texture features,
+                                  contour detection, simple cell, complex cell, visual cortex, receptive field, demo, surround inhibition, surround suppression, 
+								  contour, perception, texture">
+   <title>Gabor filter for image processing and computer vision</title>
+   <link rel=stylesheet type="text/css" href="http://matlabserver.cs.rug.nl/hpci.css">
+</head>
+<body bgcolor="#ffffdd">
+
+<!--
+CREATED BY: M.B. Wieling, Groningen University,
+            Department of Computer Science, Intelligent Systems
+LAST CHANGED: 17. August 2006
+-->
+
+<script type="text/javascript">
+
+  function inhibCheck(select) { 
+    x = select.form;
+    if (select.selectedIndex == 0) { 
+	  x.supIsoinhib.disabled = true;
+	  x.alpha.disabled = true;
+	  x.k1.disabled = true;
+	  x.k2.disabled = true;
+	}
+	else if (select.selectedIndex == 1) {
+	  x.supIsoinhib.disabled = false;
+	  if (x.selRight.selectedIndex == 4) {
+	    x.alpha.disabled = true;
+	  }
+	  else { 
+		x.alpha.disabled = false;
+	  }
+	  x.k1.disabled = false;
+	  x.k2.disabled = false;
+	}
+	else {
+	  x.supIsoinhib.disabled = true;
+	  if (x.selRight.selectedIndex == 4) {
+	    x.alpha.disabled = true;
+	  }
+	  else { 
+		x.alpha.disabled = false;
+	  }
+	  x.k1.disabled = false;
+	  x.k2.disabled = false;
+	}
+  }
+
+  function hystCheck(checkbox) {
+    x = checkbox.form;
+    if (checkbox.checked) {
+	  x.tlow.disabled = false;
+	  x.thigh.disabled = false;
+	}
+	else {
+	  x.tlow.disabled = true;
+	  x.thigh.disabled = true;
+	}
+  }
+
+  function hwCheck(checkbox) {
+    x = checkbox.form;
+    if (checkbox.checked) {
+	  x.hwperc.disabled = false;
+	}
+	else {
+	  x.hwperc.disabled = true;
+	}
+  }
+
+  function orienCheck(textfield) {
+    x = textfield.form;
+	val = textfield.value;
+	if (val.indexOf(',') != -1) { // there are multiple values
+	  x.nroriens.disabled = true;
+	}
+	else {
+	  x.nroriens.disabled = false;
+	}
+  }
+
+  function selCheck(select) { 
+    x = select.form;
+    if (select.selectedIndex == 0) {
+	  x.wavelength.disabled = false;
+	  x.orientation.disabled = false;
+	  x.phaseoffset.disabled = false;
+	  x.aspectratio.disabled = false;
+	  x.bandwidth.disabled = false;
+	  x.hwstate.disabled = false;
+	  x.supPhases.disabled = false;
+	  x.inhibMethod.disabled = false;
+	  x.thinning.disabled = false;
+	  x.hyst.disabled = false;
+	  x.inhibMethod.options[0].disabled = false;
+	  x.inhibMethod.options[0].selected = true;
+	  inhibCheck(x.inhibMethod);
+	  hystCheck(x.hyst);
+	  hwCheck(x.hwstate);
+	  orienCheck(x.orientation);
+	}
+	else if (select.selectedIndex == 1)  {
+	  x.wavelength.disabled = false;
+	  x.orientation.disabled = false;
+	  x.phaseoffset.disabled = false;
+	  x.aspectratio.disabled = false;
+	  x.bandwidth.disabled = false;
+	  x.nroriens.disabled = true;
+      x.hwstate.disabled = true;
+	  x.hwperc.disabled = true;
+	  x.supPhases.disabled = true;
+	  x.inhibMethod.disabled = true;
+	  x.supIsoinhib.disabled = true;
+	  x.alpha.disabled = true;
+	  x.k1.disabled = true;
+	  x.k2.disabled = true;
+	  x.thinning.disabled = true;
+	  x.hyst.disabled = true;
+	  x.tlow.disabled = true;
+	  x.thigh.disabled = true;
+	  x.inhibMethod.options[0].selected = true;
+	}
+    else if (select.selectedIndex == 2)  {
+	  x.wavelength.disabled = false;
+	  x.orientation.disabled = false;
+	  x.phaseoffset.disabled = false;
+	  x.aspectratio.disabled = false;
+	  x.bandwidth.disabled = false;
+	  x.nroriens.disabled = true;
+      x.hwstate.disabled = true;
+	  x.hwperc.disabled = true;
+	  x.supPhases.disabled = true;
+	  x.inhibMethod.disabled = true;
+	  x.supIsoinhib.disabled = true;
+	  x.alpha.disabled = true;
+	  x.k1.disabled = true;
+	  x.k2.disabled = true;
+	  x.thinning.disabled = true;
+	  x.hyst.disabled = true;
+	  x.tlow.disabled = true;
+	  x.thigh.disabled = true;
+	  x.inhibMethod.options[0].selected = true;
+	}
+	else if (select.selectedIndex == 3) { 
+	  x.wavelength.disabled = false;
+	  x.orientation.disabled = true;
+	  x.phaseoffset.disabled = true;
+	  x.aspectratio.disabled = true;
+	  x.bandwidth.disabled = false;
+	  x.nroriens.disabled = true;
+      x.hwstate.disabled = false;
+	  x.hwperc.disabled = true;
+	  x.supPhases.disabled = true;
+	  x.inhibMethod.disabled = true;
+	  x.supIsoinhib.disabled = true;
+	  x.alpha.disabled = true;
+	  x.k1.disabled = false;
+	  x.k2.disabled = false;
+	  x.thinning.disabled = true;
+	  x.hyst.disabled = true;
+	  x.tlow.disabled = true;
+	  x.thigh.disabled = true;
+	  x.inhibMethod.options[0].selected = true;
+	  hwCheck(x.hwstate);
+	}
+	else { 
+	  x.wavelength.disabled = false;
+	  x.orientation.disabled = false;
+	  x.phaseoffset.disabled = false;
+	  x.aspectratio.disabled = false;
+	  x.bandwidth.disabled = false;
+	  x.hwstate.disabled = false;
+	  x.supPhases.disabled = false;
+	  x.inhibMethod.disabled = false;
+	  x.thinning.disabled = false;
+	  x.hyst.disabled = false;
+	  x.inhibMethod.disabled = false;
+	  x.inhibMethod.options[0].disabled = true;
+	  x.inhibMethod.options[1].selected = true;
+	  x.thinning.disabled = true;
+	  x.hyst.disabled = true;
+	  x.tlow.disabled = true;
+	  x.thigh.disabled = true;
+	  inhibCheck(x.inhibMethod);
+	  hwCheck(x.hwstate);
+	  orienCheck(x.orientation);
+	}
+
+  }
+</script>
+
+<!-- NT version: -->
+<form action="/cgi-bin/matweb.exe" method="POST" target="_parent">
+<!-- Unix version: -->
+<!--<form action="/cgi-bin/matweb" method="POST">-->
+
+<h1 class="pageheading">Gabor filter for image processing and computer vision</h1>
+<a href="http://www.cs.rug.nl/~petkov" target="_blank">N. Petkov</a> and 
+<a href="http://www.martijnwieling.nl" target="_blank">M.B. Wieling</a>, 
+<a href="http://www.rug.nl/corporate/?lang=en" target="_blank">University of Groningen</a>,<br>
+<a href="http://www.rug.nl/informatica/?lang=en" target="_blank">Department of Computing Science</a>, 
+<a href="http://www.rug.nl/informatica/onderzoek/programmas/hpci/?lang=en" target="_blank">Intelligent Systems</a>
+
+<p>
+Other on-line image processing and computer vision applications are available at <a href="http://matlabserver.cs.rug.nl">http://matlabserver.cs.rug.nl</a>.
+
+<p>
+On this site you can: visualize Gabor functions, use a Gabor filter for
+edge detection and extraction of texture features, simulate simple and
+complex cells (visual cortex), simulate non-classical receptive field
+inhibition or surround suppression and use it for object contour
+detection, and explain certain visual perception effects.
+<br>
+Select an input image or upload your own input image. Specify the parameter values
+of the filter and submit the job for execution. After the program completes the
+input image and the resulting output image will be displayed in the
+page. You can save the results on your system.<p>
+
+Click here for <a href="../edgedetectionweb/web/edgedetection_params.html" target="_blank">explanations</a>,
+<a href="../edgedetectionweb/web/edgedetection_params.html#references" target="_blank">references</a> and 
+<a href="../edgedetectionweb/web/edgedetection_examples.html" target="_blank">examples</a>.
+
+<input type="hidden" name="mlmfile" value="edgedetection">
+<table width="100%">
+  <tr>
+    <td colspan="14"> <hr> </td> 
+  </tr>
+  <tr>
+    <td colspan="1" align="left"><b><u>Input image</u>:</b></td>
+	<td colspan="4" align="left"> 
+       <select name="selImage" size="1">
+          $imagelist$
+       </select>
+    </td>
+	<td colspan="3"><input type="submit" value="Update view!" name="Submit"></td>
+    <td colspan="2" align="right"><b><u>Output image</u>:</b></td>
+	<td colspan="4">        
+	   <select name="selRight" size="1" onClick="selCheck(this)">
+          <option selected>Filter output</option>
+          <option>Gabor function</option>
+	      <option>Gabor function (power spectrum)</option>
+          <option>Inhibition surround</option>
+		  <option>Inhibition term</option>
+        </select>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2"><a href="../edgedetectionweb/web/edgedetection_uploading.html" target="_blank">Upload images</a></td>
+	 <td colspan="8">&nbsp;</td>
+	 <td colspan="4"><input type="checkbox" value="1" name="invertOutput">Invert output</td>
+   </tr>
+   <tr>
+     <td colspan="14"> <hr> </td> 
+   </tr>
+</table>
+
+<table width="100%">
+  <tr>
+    <td colspan="14" align="left"><b><u><a href="../edgedetectionweb/web/edgedetection_params.html#gabor" target="_blank">Gabor filtering</a></u></b></td>
+  </tr>
+  <tr>
+     <td align="left" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#wavelength" target="_blank">Wavelength</a></td> 
+	 <td align="center" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#orientation" target="_blank">Orientation(s) (deg.)</a></td>
+	 <td align="center" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#phaseoffset" target="_blank">Phase offset(s) (deg.)</a></td> 
+	 <td align="center" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#aspectratio" target="_blank">Aspect Ratio</a></td>
+	 <td align="center" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#bandwidth" target="_blank">Bandwidth</a></td>
+	 <td align="center" colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#nroriens" target="_blank">Number of orientations</a></td>
+	 <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  	 <td colspan="2" align="left"><input type="text" name="wavelength" value="8"></td>
+	 <td colspan="2" align="center"><input type="text" name="orientation" value="0" onBlur="orienCheck(this)" onKeyUp="orienCheck(this)"></td>
+	 <td colspan="2" align="center"><input type="text" name="phaseoffset" value="0, 90"></td>
+	 <td colspan="2" align="center"><input type="text" name="aspectratio" value="0.5"></td>
+     <td colspan="2" align="center"><input type="text" name="bandwidth" value="1"></td>
+	 <td colspan="2" align="center"><input type="text" name="nroriens" value="8"></td>
+	 <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14">&nbsp;</td>
+  </tr>
+  </table>
+  
+  <table width="100%">
+  <tr>
+    <td colspan="6"> <hr> </td>
+	<td colspan="2"> &nbsp; </td> 
+	<td colspan="6"> <hr> </td>	  
+  </tr>  
+  <tr>
+    <td colspan="6" align="left"><b><u><a href="../edgedetectionweb/web/edgedetection_params.html#hwr" target="_blank">
+                                         Half-wave rectification (HWR)</a></u></b></td>
+    <td colspan="2"> &nbsp; </td> 
+    <td colspan="6"><b><u><a href="../edgedetectionweb/web/edgedetection_params.html#supphases" target="_blank">Superposition of phases</a></u></b></td>	
+  </tr>
+  <tr>
+     <td colspan="4">&nbsp;</td>
+	 <td colspan="4"><a href="../edgedetectionweb/web/edgedetection_params.html#HWRthresh" target="_blank">HWR threshold (%)</a></td>
+	 <td colspan="6" align="left">&nbsp;</td>
+  </tr>
+  <tr>
+     <td colspan="4"><input type="checkbox" value="1" name="hwstate" onClick="hwCheck(this)">
+	                 <a href="../edgedetectionweb/web/edgedetection_params.html#enableHWR" target="_blank">Enable HWR</a></td> 
+	 <td colspan="2"><input type="text" name="hwperc" value="0" disabled></td> <td colspan="2"> &nbsp; </td>
+	 <td colspan="4"> 
+        <select name="supPhases" size="1">
+          <option>L-infinity norm</option>
+          <option>L1 norm</option>
+          <option selected>L2 norm</option>
+          <option>None</option>
+        </select>
+     </td>
+	 <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td colspan="14"> <hr> </td> 
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+    <td colspan="14" align="left"><b><u><a href="../edgedetectionweb/web/edgedetection_params.html#surinhib" target="_blank">
+                                           Surround inhibition</a></u></b></td>
+  </tr>
+  <tr> 
+    <td colspan="3" align="left"><a href="../edgedetectionweb/web/edgedetection_params.html#selinhib" target="_blank">Select inhibition type</a></td>
+  	<td colspan="2"><a href="../edgedetectionweb/web/edgedetection_params.html#supiso" target="_blank">Superposition for<br> 
+	                                                                                                <i>isotropic inhibition</i></a></td>
+    <td colspan="2" align="center"><a href="../edgedetectionweb/web/edgedetection_params.html#alpha" target="_blank">Alpha</a></td>
+	<td colspan="2" align="center"><a href="../edgedetectionweb/web/edgedetection_params.html#k1k2" target="_blank">K<sub>1</sub></a></td>
+	<td colspan="2" align="center"><a href="../edgedetectionweb/web/edgedetection_params.html#k1k2" target="_blank">K<sub>2</sub></a></td>
+	<td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3"> 
+      <select name="inhibMethod" size="1" onClick="inhibCheck(this)">
+        <option selected>No surround inhibition</option>
+        <option>Isotropic surround inhibition</option>
+        <option>Anisotropic surround inhibition</option>
+      </select>
+    </td>
+    <td colspan="2"> 
+      <select name="supIsoinhib" size="1" disabled>
+        <option selected>L-infinity norm</option>
+        <option>L1 norm</option>
+        <option>L2 norm</option>
+      </select>
+    </td>
+	<td colspan="2" align="center"><input type="text" name="alpha" value="1" disabled></td>
+	<td colspan="2" align="center"><input type="text" name="k1" value="1" disabled></td>
+	<td colspan="2" align="center"><input type="text" name="k2" value="4" disabled></td>
+	<td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14"> <hr> </td>
+  </tr>
+  <tr>
+    <td colspan="14" align="left"><b><u><a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">
+	                                    Thinning and thresholding</a></u></b></td>
+  </tr>
+  <tr>
+    <td colspan="5"><input type="checkbox" value="1" name="thinning"><a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">
+	                                    Enable thinning</a></td> 
+	<td colspan="4" align="center"><i><a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">Hysteresis thresholding</a></i></td> 
+	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5">&nbsp;</td>
+	<td colspan="2" align="center"><a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">T-low</a></td>
+	<td colspan="2" align="center"><a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">T-high</a></td>
+	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5"><input type="checkbox" value="1" name="hyst" onClick="hystCheck(this)">
+	               <a href="../edgedetectionweb/web/edgedetection_params.html#tt" target="_blank">Enable hysteresis thresholding</a></td>
+	<td colspan="2" align="center"><input type="text" name="tlow" value="0.1" disabled> 
+	<td colspan="2" align="center"><input type="text" name="thigh" value="0.2" disabled>
+	<td colspan="5">&nbsp;</td>
+  </tr>
+    <tr> 
+    <td colspan="14"> &nbsp; </td> 
+  </tr>
+  <tr> 
+    <td colspan="14"> <hr> </td> 
+  </tr>
+</table>
+
+<table width="100%">
+<tr>
+  <td align="left"><input type="submit" name="Submit" value="Update view!"></td>
+  <td align="right">
+    &nbsp;
+  </td>
+</tr>
+</table>
+
+</form>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4885602-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

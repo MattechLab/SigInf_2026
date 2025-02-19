@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0076)http://matlabserver.cs.rug.nl/edgedetectionweb/web/edgedetection_params.html -->
+<HTML><HEAD><TITLE>Gabor filter for image processing and computer vision - Model parameters</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="N. Petkov and M.B. Wieling" name=Author>
+<META content="Gabor filter for image processing and computer vision" 
+name=Description>
+<META 
+content="gabor, Gabor, gabor filter, gabor function, Gabor filter, Gabor function, simple cell, complex cell, visual cortex, receptive field, demo, surround inhibition, surround suppression, contour, perception, texture, explanation of parameters" 
+name=Keywords><LINK href="http://matlabserver.cs.rug.nl/hpci.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.2912" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffdd><!--
+CREATED BY: N. Petkov and M.B. Wieling, Groningen University,
+            Department of Computer Science, Intelligent Systems
+LAST CHANGED: 11. April 2005
+-->
+<H1 class=pageheading>Gabor filter for image processing and computer 
+vision</H1><A href="http://www.cs.rug.nl/~petkov" target=_blank>N. Petkov</A> 
+and <A href="http://www.martijnwieling.nl/" target=_blank>M.B. Wieling</A>, <A 
+href="http://www.rug.nl/corporate/?lang=en" target=_blank>University of 
+Groningen</A>,<BR><A href="http://www.rug.nl/informatica/?lang=en" 
+target=_blank>Department of Computing Science</A>, <A 
+href="http://www.rug.nl/informatica/onderzoek/programmas/hpci/?lang=en" 
+target=_blank>Intelligent Systems</A>
+<P>This page contains explanations concerning a <A 
+href="http://matlabserver.cs.rug.nl/edgedetectionweb/web/index.html">simulation 
+program</A> available on internet.
+<P>On this site you can: visualize Gabor functions, use a Gabor filter for edge 
+detection and extraction of texture features, simulate simple and complex cells 
+(visual cortex), simulate non-classical receptive field inhibition or surround 
+suppression and use it for object contour detection, and explain certain visual 
+perception effects. 
+<HR>
+<A name=params></A>
+<H2>Explanation of parameters</H2><A name=gabor></A>
+<H3>Gabor filtering</H3>This block implements one or multiple convolutions of an 
+input image with a two-dimensional Gabor function:
+<P><IMG alt="equation 1.1" src="eq1.1.gif" border=0>
+<P>To visualize a Gabor function select the option "Gabor function" under 
+"Output image". The Gabor function for the specified values of the parameters 
+"wavelength", "orientation", "phase offset", "aspect ratio", and "bandwidth" 
+will be calculated and displayed as an intensity map image in the output window. 
+(Light and dark gray colors correspond to positive and negative function values, 
+respectively.) The image in the output widow has the same size as the input image:
+select, for instance, input image octagon.jpg to get an output image of size 100 by 100.
+If lists of values are specified under "orientation(s)" and 
+"phase offset(s)", only the first values in these lists will be used.
+<P>Two-dimensional Gabor functions were proposed by Daugman <A 
+href="http://matlabserver.cs.rug.nl/edgedetectionweb/web/edgedetection_params.html#references">[1]</A> 
+to model the spatial summation properties (of the receptive fields) of simple 
+cells in the visual cortex. They are widely used in image processing, computer 
+vision, neuroscience and psychophysics. The parametrisaton used in Eq.(1) 
+follows references <A 
+href="http://matlabserver.cs.rug.nl/edgedetectionweb/web/edgedetection_params.html#references">[2-7]</A> 
+where further details can be found. 
+<P><A name=wavelength></A><B>Wavelength (&#955;)</B>
+<P>This is the wavelength of the cosine factor of the Gabor filter kernel and 
+herewith the preferred wavelength of this filter. Its value is specified in 
+pixels. Valid values are real numbers equal to or greater than 2. The value &#955;=2 
+should not be used in combination with phase offset &#966;=-90 or &#966;=90 because in 
+these cases the Gabor function is sampled in its zero crossings. In order to prevent the 
+occurence of undesired effects at the image borders, the wavelength value should 
+be smaller than one fifth of the input image size.<BR>
+<table>
+<tr>
+<td colspan="6" align="center"><img src="wl5or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl15or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="left"> 
+The images (of size 100 x 100) on the left show Gabor filter kernels with values of 
+the wavelength parameter of 5, 10 and 15, from left to right, respectively. The values of the other parameters
+are as follows: orientation 0, phase offset 0, aspect ratio 0.5, and bandwidth 1.
+</td>
+</tr> 
+</table>
+<P><A name=orientation></A><B>Orientation(s) (&#952;)</B> 
+<P>This parameter specifies the orientation of the normal to the parallel 
+stripes of a Gabor function. Its value is specified in degrees. Valid values are 
+real numbers between 0 and 360.
+<table>
+<tr>
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or45ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or90ph0ar05bw1.png"></td> 
+<td colspan="6" align="left"> 
+The images (of size 100 x 100) on the left show Gabor filter kernels with values of 
+the orientation parameter of 0, 45 and 90, from left to right, respectively. The values of the other parameters
+are as follows: wavelength 10, phase offset 0, aspect ratio 0.5, and bandwidth 1.
+</td>
+</tr> 
+</table>
+<P>For one single convolution, enter one orientation value and set the value of 
+the last parameter in the block "number of orientations" to 1. 
+<br>If "number of orientations" is set to an integer value N, N &gt;= 1, then N 
+convolutions will be computed. The orientations of the corresponding Gabor 
+functions are equidistantly distributed between 0 and 360 degrees in increments 
+of 360/N, starting from the value specified under "orientation(s)". 
+An alternative way of computing multiple convolutions for different 
+orientations is to specify under "orientation(s)" a list of values separated by 
+commas (e.g. 0,45,110). In this case, the value of the parameter "number of 
+orientations" is ignored. <BR>
+<P><A name=phaseoffset></A><B>Phase offset(s) (&#966;)</B> 
+<P>The phase offset &#966; in the argument of the cosine factor of the Gabor function 
+is specified in degrees. Valid values are real numbers between -180 and 180. The 
+values 0 and 180 correspond to center-symmetric 'center-on' and 'center-off' 
+functions, respectively, while -90 and 90 correspond to anti-symmetric 
+functions. All other cases correspond to asymmetric functions. 
+<table>
+<tr>
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph180ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph-90ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph90ar05bw1.png"></td> 
+<td colspan="6" align="left"> 
+The images (of size 100 x 100) on the left show Gabor filter kernels with values of 
+the phase offset parameter of 0, 180, -90 and 90 dgerees, from left to right, respectively. 
+The values of the other parameters
+are as follows: wavelength 10, orientation 0, aspect ratio 0.5, and bandwidth 1.
+</td>
+</tr> 
+</table>
+<P>If one single value is specified, one convolution per orientation will be 
+computed. If a list of values is given (e.g. 0,90 which is default), multiple 
+convolutions per orientation will be computed, one for each value in the phase 
+offset list. <BR>
+<P><A name=aspectratio></A><B>Aspect ratio (&#947;)</B> 
+<P>This parameter, called more precisely the spatial aspect ratio, specifies the 
+ellipticity of the support of the Gabor function. For &#947; = 1, the support is 
+circular. For &#947; &lt; 1 the support is elongated in orientation of the parallel 
+stripes of the function. Default value is &#947; = 0.5. 
+<table>
+<tr>
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph0ar1bw1.png"></td> 
+<td colspan="6" align="left"> 
+The images (of size 100 x 100) on the left show Gabor filter kernels with values of 
+the aspect ratio parameter of 0.5 and 1, from left to right, respectively. The values of the other parameters
+are as follows: wavelength 10, orientation 0, phase offset 0, and bandwidth 1.
+</td>
+</tr> 
+</table>
+<BR>
+<P><A name=bandwidth></A><B>Bandwidth (<I>b</I>)</B> 
+<P>The half-response spatial frequency bandwidth <I>b</I> (in octaves) of a 
+Gabor filter is related to the ratio &#963; / &#955;, where &#963; and &#955; are the standard 
+deviation of the Gaussian factor of the Gabor function and the preferred 
+wavelength, respectively, as follows:
+<P><IMG alt="equation 2.1" src="eq2.1.gif" border=0> 
+<P>The value of &#963; cannot be specified directly. It can only be changed through 
+the bandwidth <I>b</I>. The bandwidth value must be specified as a real positive number. Default is 1, 
+in which case &#963; and &#955; are connected as follows: &#963; = 0.56 &#955;. 
+The smaller the bandwidth, the larger &#963;, the support of the Gabor function 
+and the number of visible parallel excitatory and inhibitory stripe zones. 
+<table>
+<tr>
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw05.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw1.png"></td> 
+<td colspan="6" align="center"><img src="wl10or0ph0ar05bw2.png"></td> 
+<td colspan="6" align="left"> 
+The images (of size 100 x 100) on the left show Gabor filter kernels with values of 
+the bandwidth parameter of 0.5, 1, and 2, from left to right, respectively. 
+The values of the other parameters are as follows: wavelength 10, orientation 0, 
+phase offset 0, and aspect ratio 0.5.
+</td>
+</tr> 
+</table>
+<BR>
+<P><A name=nroriens></A><B>Number of orientations</B> 
+<P>Default value is 1. If an integer value N, N &gt;= 1, is specified then N 
+convolutions will computed. The orientations of the corresponding Gabor 
+functions are equidistantly distributed between 0 and 360 degrees, with 
+increments of 360/N, starting from the value specified in "orientation(s)". For 
+this option to work, one single value (without a comma present) must be 
+specified for the parameter "orientation(s)". 
+<HR>
+<A name=hwr></A>
+<H3>Half-wave rectification (HWR)</H3><A name=enableHWR></A><B>Enable HWR</B>
+<P>If this option is enabled, all values in the convolution results below a 
+certain threshold value will be set to zero (HWR is disabled by default).
+<P><A name=HWRthresh></A><B>HWR threshold (%)</B>
+<P>The threshold value can be specified as a percentage of the maximum value in 
+a given convolution result. If this percentage is set to 0, all negative values 
+in that convolution result will be changed to 0. 
+<HR>
+<A name=supphases></A>
+<H3>Superposition of phases</H3>If a list of multiple values is entered under 
+parameter "Phase offset(s)" of the "Gabor filtering" block, multiple 
+convolutions will be computed for each orientation value specified, one 
+convolution for each phase offset value in the list. The convolution results for 
+the different phase offset values of a given orientation can be combined in one 
+single output image for that orientation. This combination can be done in 
+different ways, using the L2, L1 or L-infinity norms. If the L2 norm is used, 
+the squared values of the convolution results for the concerned orientation will 
+be added together pixel-wise and followed by a pixel-wise square root 
+computation to produce the combined result. The L1 and the L-infinity norms 
+correspond to the pixel-wise sum and maximum of the absolute values, 
+respectively. Default is the L2 norm. This choice, together with the default 
+(0,90) of the "Phase offset(s)" of the "Gabor filtering" block, implements the 
+Gabor energy filter that is widely uses in image processing and computer vision. 
+One can also choose not to apply superposition of phases ("None"). 
+<HR>
+<A name=surinhib></A>
+<H3>Surround inhibition</H3>The Gabor filter can be augmented with surround 
+inhibition which suppresses texture edges while leaving relativley unaffected 
+the contours of objects and region boundaries. This biologically motivated 
+mechanism introduced in <A 
+href="http://matlabserver.cs.rug.nl/edgedetectionweb/web/edgedetection_params.html#references">[6,7]</A> 
+is particularly useful for contour-based object recognition. In that case, 
+texture edges play the role of noise that obscures object contours and region 
+boundaries and should preferably be eliminated. One can best observe the effect 
+of surround inhibition on different types of oriented features, such as edges in 
+texture vs. isolated edges and lines, by taking the default input image 
+"synthetic1.png".
+<P><A name=selinhib></A><B>Select inhibition type</B>
+<P>Default is "no surround inhibition".
+<P>If "isotropic surround inhibition" is selected, edges in the surroundings of 
+a given edge have a suppression effect on that edge. The relative orientation of 
+these edges has no influence on the suppression effect.
+<P>If "anisotropic surround inhibition" is selected, the suppression effect of 
+edges surrounding a given edge depends on their relative orientation: edges 
+parallel to the considered edge have stronger suppression effect than oblique 
+edges, and orthogonal edges have no such effect.<BR>
+<P><A name=supiso></A><B>Superposition for isotropic inhibition</B> 
+<P>If "isotropic inhibition" is selected, a superposition of the convolution 
+results for all used orientations is computed and deployed for surround 
+suppression. Different types of superposition can be used: L1, L2 and L-infinity 
+norms (see the explanations of these terms under "Superposition of phases" in 
+the "Gabor filtering" block). <BR>
+<P><A name=alpha></A><B>Alpha (&#945;)</B> 
+<P>This parameter controls the strength of surround suppression. Default is 1 
+but one may need larger values in order to completely suppress texture edges.
+<P><A name=k1k2></A><B>K<SUB>1</SUB> and K<SUB>2</SUB></B> 
+<P>The surround that has a suppression effect on an edge in a given point has 
+annular form with inner radius controlled by the combination of values of the 
+parameters K<SUB>1</SUB> and K<SUB>2</SUB>. The contribution of points in the 
+annular surround is defined by a weighting function which is a half-wave 
+rectified difference of Gaussian functions with standard deviations of 
+K<SUB>1</SUB>&#963; and K<SUB>2</SUB>&#963; where &#963; is the standard deviation of the 
+Gaussian factor of the Gabor function(s) used. One can visualize the weighting 
+function by selecting option "inhibition kernel" under parameter "Output image". 
+
+<P>The inner radius of the annular surround increases with K<SUB>1</SUB>. The 
+size of the annual surround which has substantial contribution to the 
+suppression increases with K<SUB>2</SUB>. 
+<P>Default values are K<SUB>1</SUB> = 1 and K<SUB>2</SUB> = 4. 
+<HR>
+<A name=tt></A>
+<H3>Thinning and thresholding</H3>These are post-processing techniques 
+standardly used in image processing.
+<P>Thinning thins edges in the output to one-pixel wide edges by non-maxima 
+suppression.
+<P>Hysteresis thresholding results in a binary output image. If it is enabled, 
+two threshold values must be specified: <B>T-high</B> and <B>T-low</B>. These 
+are given as fractions (between 0 and 1) of the maximum response value.
+<P>Pixels with responses higher than T-high are assigned the binary value 1 in 
+the output, while pixels with responses below T-low are assigned the binary 
+value 0. Pixels with responses between T-low and T-high are assigned the value 1 
+in the binary output if they can be connected to any pixel with a response 
+larger than T-high through a chain of other pixels with responses larger than 
+T-low. 
+<HR>
+<A name=references></A>
+<H2>References</H2>
+<OL>
+  <LI>J.G. Daugman: Uncertainty relations for resolution in space, spatial 
+  frequency, and orientation optimized by two-dimensional visual cortical 
+  filters, Journal of the Optical Society of America A, 1985, vol. 2, pp. 
+  1160-1169. 
+  <LI>N. Petkov: Biologically motivated computationally intensive approaches to 
+  image pattern recognition, <EM>Future Generation Computer Systems</EM>, 
+  <B>11</B> (4-5), 1995, 451-465.<BR> 
+<small>
+[<a href="http://www.cs.rug.nl/~petkov/publications/bib/1995fgcs.bib.html">bibTex</a>], 
+[<a href="http://www.cs.rug.nl/~petkov/publications/1995fgcs.pdf">pdf 1.5 MB</a> &copy&nbsp;Elsevier - original publication available at <a href="http://dx.doi.org/10.1016/0167-739X(95)00015-K">
+doi:10.1016/0167-739X(95)00015-K</a>].
+</small>
+  <LI>N. Petkov and P. Kruizinga: <A name=bar></A><A 
+  name=grating></A>Computational models of visual neurons specialised in the 
+  detection of periodic and aperiodic oriented visual stimuli: bar and grating 
+  cells, <EM>Biological Cybernetics</EM>, <B>76</B> (2), 1997, 
+  83-96.<BR><SMALL>[<a href="http://www.cs.rug.nl/~petkov/publications/bib/1997bc.bib.html">bibTex</a>],
+[<A href="http://www.cs.rug.nl/~petkov/publications/bc1997.pdf">pdf 470 KB</A> 
+  ©&nbsp;Springer]</SMALL> 
+  <LI>P. Kruizinga and N. Petkov: Non-linear operator for oriented texture, 
+  <EM>IEEE Trans. on Image Processing</EM>, <B>8</B> (10), 1999, 
+  1395-1407.<BR><SMALL>[<a href="http://www.cs.rug.nl/~petkov/publications/bib/1999ieee-tip.bib.html">bibTex</a>],
+  [<A href="http://www.cs.rug.nl/~petkov/publications/ieee-tip1999.pdf">pdf 1775 
+  KB</A> ©&nbsp;IEEE]</SMALL> 
+  <LI>S.E. Grigorescu, N. Petkov and P. Kruizinga: Comparison of texture 
+  features based on Gabor filters, <EM>IEEE Trans. on Image Processing</EM>, 
+  <B>11</B> (10), 2002, 1160-1167.<BR><SMALL>
+[<a href="http://www.cs.rug.nl/~petkov/publications/bib/2002ieee-tip.bib.html">bibTex</a>],
+[<A href="http://www.cs.rug.nl/~petkov/publications/2002ieee-tip.pdf">pdf 286 
+  KB</A> ©&nbsp;IEEE]</SMALL> 
+  <LI>N. Petkov and M. A. Westenberg: Suppression of contour perception by 
+  band-limited noise and its relation to non-classical receptive field 
+  inhibition, <EM>Biological Cybernetics</EM>, <B>88</B>, 2003, 
+  236-246.<BR><SMALL>
+[<a href="http://www.cs.rug.nl/~petkov/publications/bib/2003bc.bib.html">bibTex</a>], [<A 
+  href="http://www.cs.rug.nl/~petkov/publications/2003bc.pdf">pdf 636 KB</A> 
+  ©&nbsp;Springer - original publication available at http://link.springer.de 
+  DOI 10.1007/s00422-002-0378-2]</SMALL> 
+  <LI>C. Grigorescu, N. Petkov and M. A. Westenberg: Contour detection based on 
+  nonclassical receptive field inhibition, <EM>IEEE Trans. on Image 
+  Processing</EM>, <B>12</B> (7), 2003, 729-739.<BR><SMALL> 
+[<A href="http://www.cs.rug.nl/~petkov/publications/bib/2003ieee-tip_contour.bib.html">bibTex</A>],  
+  [<A href="http://www.cs.rug.nl/~petkov/publications/2003ieee-tip_contour.pdf">pdf 
+  843 KB</A> ©&nbsp;IEEE]</SMALL></LI></OL>
+<P>
+<HR>
+
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD><EM>Last changed: 
+2008-07-03</EM></TD></TR></TBODY></TABLE><BR>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4885602-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</BODY></HTML>

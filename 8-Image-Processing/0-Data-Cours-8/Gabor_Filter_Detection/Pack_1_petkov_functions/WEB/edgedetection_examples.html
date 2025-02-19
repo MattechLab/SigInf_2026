@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="N. Petkov and M.B. Wieling">
+  <meta name="Description" content="Gabor filter for image processing and computer vision">
+  <meta name="Keywords" content="gabor, Gabor, gabor filter, gabor function, Gabor filter, Gabor function, edge detection, texture features,
+                                 contour detection, simple cell, complex cell, visual cortex, receptive field, demo, surround inhibition, 
+      							 surround suppression, contour, perception, texture, example, examples">
+  <title>Gabor filter for image processing and computer vision - Examples</title>
+  <link rel=stylesheet type="text/css" href="http://matlabserver.cs.rug.nl/hpci.css">
+</head>
+<body bgcolor="#ffffdd">
+
+<!--
+CREATED BY: N. Petkov and M.B. Wieling, Groningen University,
+            Department of Computer Science, Intelligent Systems
+LAST CHANGED: 11. April 2005
+-->
+
+<h1 class="pageheading">Gabor filter for image processing and computer vision</h1>
+<a href="http://www.cs.rug.nl/~petkov" target="_blank">N. Petkov</a> and 
+<a href="http://www.martijnwieling.nl" target="_blank">M.B. Wieling</a>, 
+<a href="http://www.rug.nl/corporate/?lang=en" target="_blank">University of Groningen</a>,<br>
+<a href="http://www.rug.nl/informatica/?lang=en" target="_blank">Department of Computing Science</a>, 
+<a href="http://www.rug.nl/informatica/onderzoek/programmas/hpci/?lang=en" target="_blank">Intelligent Systems</a><p>
+This page contains examples concerning a <a href="index.html">simulation program</a>
+available on internet.<p>
+On this site you can: visualize Gabor functions, use a Gabor filter for
+edge detection and extraction of texture features, simulate simple and
+complex cells (visual cortex), simulate non-classical receptive field
+inhibition or surround suppression and use it for object contour
+detection, and explain certain visual perception effects.
+<hr>
+
+<a name="examples"></a>
+<h2>Examples</h2>
+<ul>
+  <li><a href="#ex0">0) Gabor filter</a>
+  <li><a href="#ex1">1) Gabor energy filter</a>
+  <li><a href="#ex2">2) Effect of anisotropic surround inhibition</a>
+  <li><a href="#ex3">3) Effect of isotropic surround inhibition</a>
+  <li><a href="#ex4">4) Orientation-contrast pop-out and its relation to anisotropic surround inhibition</a>
+  <li><a href="#ex5">5) Decreased saliency of contours embedded in gratings and its relation
+to anisotropic surround inhibition</a>
+  <li><a href="#ex6">6) Biological utility of surround inhibition - enhancement of occluding
+contours and region boundaries by suppression of texture edges</a>
+  <li><a href="#ex7">7) Filter bank of Gabor energy filters for texture processing
+(MPEG-7 browsing descriptors)</a>
+</ul>
+
+<!-- Example 0 -->
+<hr>
+
+<a name="ex0"></a>
+<h3>0) Gabor filter</h3>
+
+Select the following <a href="edgedetection_params.html#params" target="_blank">parameter</a> values:
+<ul>
+  <li>Input image = synthetic1.png
+  <li>Wavelength = 1 ; Orientation(s) (deg.) = 0 ; Phase offset(s) (deg.) = 90; Aspect Ratio = 0.5 ; Bandwidth = 1 ; Number of orientations = 1
+  <li>Enable HWR = not checked
+  <li>Superposition of phases = L2 norm
+  <li>Select inhibition type = No surround inhibition
+  <li>Enable thinning = not checked ; Enable hysteresis thresholding = not checked
+</ul>
+This filter deploys an <b>antisymmetric Gabor function</b> (phase offset
+90 or -90 degrees) and gives a maximum response at an edge.
+Observe the response of the filter to the edge (black to white
+transition) in the lower part of the input image. The response is
+maximal exactly at the edge. There are two flanking responses (and you
+can observe a larger number of such flanking responses if you take a
+smaller bandwidth, e.g. 0.5) that are due to the ripples of the Gabor
+function, but you can remove them by enabling halfwave rectification
+with a HWR threshold=40(%).<p>
+
+Take now a filter that deploys a <b>symmetric Gabor function</b> (phase
+offset 0 or 180 degrees). Observe the response of that filter to the
+concerned edge - the maximum is shifted from the edge, there are
+actually two maxima - one to the left and the other to the right of the
+edge. A the same time, a symmetric filter gives a maximum response to a
+line of appropriate width whereby the response is centered on the line -
+observe the response of the filter to the vertical line in the middle of
+the image.<p>
+
+To conclude, symmetric and antisymmetric Gabor filters are good
+(localization) detectors of lines and edges, respectively.
+You can read more on this in <a href="edgedetection_params.html#references" target="_blank">references</a> [2] and [3].
+A complex Gabor function that combines a symmetric real and an antisymmetric imaginary part has optimal joint
+localization properties in the spatial and the spatial frequency domain (see
+<a href="edgedetection_params.html#references" target="_blank">reference</a> [1]).
+
+<!-- Example 1 -->
+<hr>
+<a name="ex1"></a>
+<h3>1) Gabor energy filter</h3>
+Select the following <a href="edgedetection_params.html#params" target="_blank">parameter</a> values:
+<ul>
+  <li>Input image = synthetic1.png
+  <li>Wavelength = 8 ; Orientation(s) (deg.) = 0 ; Phase offset(s) (deg.) = 0, 90 ; Aspect Ratio = 0.5 ; Bandwidth = 1 ; Number of orientations = 8
+  <li>Enable HWR = not checked
+  <li>Superposition of phases = L2 norm
+  <li>Select inhibition type = No surround inhibition
+  <li>Enable thinning = not checked ; Enable hysteresis thresholding = not checked
+</ul>
+
+Observe that the responses to all lines and edges in the output image are (approximately) equally strong. 
+(See also Fig.7 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [6] and Fig.6 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [7].)<p>
+
+A positive aspect of the Gabor energy filter in comparison with the
+simple linear Gabor filters (see <a href="#ex0">Example 0</a>) is that this filter gives a
+smooth response to an edge or a line of appropriate width with a local
+maximum exactly at the edge or in the center of the line. If you now
+apply thinning on this response, you will get one thin line that follows
+the corresponding edge or line. In contrast, the simple linear Gabor
+filters give flanking responses (due to the ripples of the Gabor
+function). Without appropriate local half-wave rectification, these
+flanking responses can cause problems in the thinning stage.
+(We thank Dr. John Daugman for his comments on this aspect of the Gabor
+energy filter.)
+<p>
+The Gabor energy filter is often used in texture processing, see <a href="edgedetection_params.html#references" target="_blank">references</a> [4] and [5].
+
+<!-- Example 2 -->
+<hr>
+<a name="ex2"></a>
+<h3>2) Effect of anisotropic surround inhibition</h3>
+Most of the <a href="edgedetection_params.html#params" target="_blank">parameters</a> have values as in Example 1 but surround inhibition is enabled.
+<ul>
+  <li>Input image = synthetic1.png
+  <li>Wavelength = 8 ; Orientation(s) (deg.) = 0 ; Phase offset(s) (deg.) = 0, 90 ; Aspect Ratio = 0.5 ; Bandwidth = 1 ; Number of orientations = 8
+  <li>Enable HWR = not checked 
+  <li>Superposition of phases = L2 norm
+  <li>Select inhibition type = Anisotropic surround inhibition ; Alpha = 1 ; K1 = 1 ; K2 = 4
+  <li>Enable thinning = not checked ;  Enable hysteresis thresholding = not checked
+</ul>
+Observe that the strength of the response to lines that are part of the vertical and oblique gratings is reduced compared to Example 1. Increase the value of Alpha (strength of surround inhibition) to 1.5 to further decrease these responses, and then to 2 to see how they disappear completely. In contrast, the response to the vertical line where it is not surrounded by other such lines remains strong. (See also Fig.7 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [6] and Fig.6 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [7].)
+
+<!-- Example 3 -->
+<hr>
+<a name="ex3"></a>
+<h3>3) Effect of isotropic surround inhibition</h3>
+All <a href="edgedetection_params.html#params" target="_blank">parameters</a> but <i>Select inhibition type</i> have the same values as in Example 2. Choose:
+<ul>
+  <li> Select inhibition type = Isotropic surround inhibition ; Superposition for isotropic inhibition = L-infinity norm 
+</ul>
+Increase Alpha from 1 to 1.5 and then to 2 to observe how the response to all lines that are surrounded by other lines will decrease and finally completely disappear (for Alpha = 2). (See also Fig.7 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [6] and Fig.6 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [7].)
+
+<!-- Example 4 -->
+<hr>
+<a name="ex4"></a>
+<h3>4) Orientation-contrast pop-out and its relation to anisotropic surround inhibition</h3> 
+The input image popout.png illustrates a perceptual effect know as orientation-contrast pop-out. 
+A single vertical bar that is embedded in a group of horizontal bars segregates, or "pops out", from its surrondings.<p>
+ 
+<b>a) Gabor-energy filtering</b><br>
+A pixel value in the output models the response of a complex cell that is responsible for that point of the visual field. 
+Select the following <a href="edgedetection_params.html#params" target="_blank">parameter</a> values: 
+<ul>
+  <li>Input image = popout.png 
+  <li>Wavelength = 8 ; Orientation(s) (deg.) = 0 ; Phase offset(s) (deg.) = 0, 90 ; Aspect Ratio = 0.5 ; Bandwidth = 1 ; Number of orientations = 4 
+  <li>Enable HWR = not checked 
+  <li>Superposition of phases = L2 norm 
+  <li>Select inhibition type = No surround inhibition 
+  <li>Enable thinning = not checked ; Enable hysteresis thresholding = not checked
+</ul>
+ Observe that the responses to all bars in the output image are (approximately) equally strong. 
+Hence, the responses of complex cells according to the Gabor-energy model cannot explain the difference in the perception
+of the single vertical bar vs. the group of horizontal bars.<p> 
+
+<b>b) Gabor-energy filtering augmented with anisotropic surround inhibition</b><br>
+Select the <a href="edgedetection_params.html#params" target="_blank">parameter</a> values as under a) above, but now set 
+<ul>
+  <li>Select inhibition type = Anisotropic surround inhibition
+</ul>
+Carry out a series of simulations in which you increase the value of the parameter Alpha, starting with
+<ul>
+  <li>Alpha = 2
+</ul>
+and increasing it to Alpha = 3 and then Alpha = 4.<p>
+Observe how the responses to the horizontal bars in the output image are reduced due to the surround suppression
+ mechanism in which bars of the same orientation inhibit each other. The response to the vertical bar is not inhibited because this bar is alone 
+- there is no other such bar in its vicinity. This type of suppression is called anisotropic because the strength of response
+ suppression depends on the mutual orientation of the stimuli: it is strongest for parallel and weakest for orthogonal stimuli. 
+(See also Fig.7 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [6] and Fig.6 in 
+<a href="edgedetection_params.html#references" target="_blank">reference</a> [7].) 
+
+<!-- Example 5 -->
+<hr>
+<a name="ex5"></a><h3>5) Decreased saliency of contours embedded in gratings and its relation
+to anisotropic surround inhibition</h3>
+
+Select as an input image triangle.png. It is a modified version of an
+image due to Galli and Zama [1931 Zeitschrift für Psychologie 31
+308-348]. A triangle is superimposed on a grating of bars. While two of
+the triangle's legs are very salient, the third leg which coincides with
+one bar of the grating is not perceived as part of the triangle at all:
+our visual system groups it with the grating bars rather than with the
+other legs of the triangle.<p>
+
+Select the following <a href="edgedetection_params.html#params" target="_blank">parameter</a> values: 
+
+<ul>
+  <li>Input image = triangle.png 
+  <li>Wavelength = 20 ; Orientation(s) (deg.) = 30,90,150 ; Phase offset(s)
+(deg.) = 0, 90 ; Aspect Ratio = 0.5 ; Bandwidth = 1 ; Number of
+orientations = (leave empty) 
+  <li>Enable HWR = not checked 
+  <li>Superposition of phases = L2 norm 
+  <li>Select inhibition type = Anisotropic surround inhibition
+  <li>Enable thinning = not checked ; Enable hysteresis thresholding = not
+checked 
+</ul>
+Start with inhibition strength
+<ul>
+  <li>Alpha = 0
+</ul>
+which corresponds to no inhibition. Observe that there is strong
+response (indicated by light colour) in the output image in the area
+covered by the grating in the input image. The response to the two legs
+of the triangle which are not parallel to the grating bars is weaker.
+This is in contrast to the perceived strong saliency of these two legs.
+<p>
+Increase the inhibition strength Alpha first to Alpha = 0.7, then to
+Alpha = 1 and then to Alpha = 2.
+<p>
+For Alpha = 0.7 the response to the bars of the grating is approximately
+as strong as the response to the two legs of the triangle. This is
+achieved by reducing the response to the grating due to surround
+inhibition: the responses to the bars of the grating inhibit each other
+and all such responses are collectively reduced. No such suppression is
+excercised on the legs of the triangle which have different orientation.
+<p>
+For Alpha = 1 the response to the bars of the grating is further reduced
+and is considerably smaller than the response to the two legs of the
+triangle. This mimicks the observed effect of increased saliency of
+these two legs vs. the third leg that is part of the grating.
+<p>
+For Alpha = 2 only response to the two concerned legs of the triangle is observed
+in the output. (See also Fig.8 in <a href="edgedetection_params.html#references" target="_blank">reference</a> [6].)
+
+<!-- Example 6 -->
+<hr>
+<a name="ex6"></a>
+<h3>6) Biological utility of surround inhibition - enhancement of occluding
+contours and region boundaries by suppression of texture edges</h3>
+
+<table>
+<tr>
+<td colspan="6" align="center"><img src="http://www.cs.rug.nl/~petkov/rhino.png" alt="Rhino original image"></td> 
+<td colspan="6" align="left">
+<b>a) Gabor-energy filtering.</b><br>
+Select the following <a href="edgedetection_params.html#params" target="_blank">parameter</a> values: 
+<ul>
+  <li>Input image = rhino.png
+  <li>Wavelength = 4 ; Orientation(s) = 0 ; Phase offset(s) = 0, 90 ; Aspect ratio = 0.5 ; 
+      Bandwidth = 1 ; Number of orientations = 16 
+  <li>Enable HWR = not checked
+  <li>Superposition of phases = L2 norm
+  <li>Select inhibition type = No surround inhibition
+  <li>Enable thinning = checked ; 
+  <li>Enable hysteresis thresholding = checked ; T-low = 0.00005 ; T-high = 0.052
+</ul>
+</td>
+</tr> 
+</table>
+
+<table>
+<tr>
+<td colspan="6" align="left"><img src="http://www.cs.rug.nl/~petkov/rhino_Gabor.png" alt="Rhino Gabor image"></td> 
+<td colspan="6" align="left">
+Observe that the contours of the rhinocerus are detected in the output
+image but that the edges of the grass texture are detected as well. Most
+of the edges found by the operator are actually due to the texture and dominate the
+output image. This output is not very useful for contour based object
+recognition because of the noise effect of the texture edges.
+</td>
+</tr> 
+</table>
+<p>
+
+<table>
+<tr>
+<td colspan="6" align="center"><img src="http://www.cs.rug.nl/~petkov/rhino_suppression.png" alt="Rhino Suppression image"></td> 
+<td colspan="6" align="left">
+<b>b) Gabor-energy filtering augmented with surround inhibition</b><br>
+Select the <a href="edgedetection_params.html#params" target="_blank">parameters</a> as above but now choose in addition the following
+values:
+<ul>
+  <li>Select inhibition type = Isotropic surround inhibition ; Alpha = 2 ; K1 = 1 ; K2 = 4 ; Superposition method for the inhibition term = L-infinity norm
+</ul>
+Observe how the texture edges disappeared from the output image that is
+now dominated by the contours of the rhinocerus. This output image is
+more useful for contour based object recognition. The observed effect supports the
+idea that the biological utility of non-classical receptive field
+inhibition is the quick pre-attentive detection of contours and their
+separation from texture edges. This would help a human or an animal to
+quickly detect an object of interest in a surroundings rich in texture
+edges. (For further information on this topic, see <a href="edgedetection_params.html#references" target="_blank">references</a> [6] and [7].)
+</td>
+</tr> 
+</table>
+<!-- Example 7 -->
+<hr>
+<a name="ex7"></a>
+<h3>7) Filter bank of Gabor energy filters for texture processing
+(MPEG-7 browsing descriptors)</h3>
+
+Gabor filters are often used for texture processing. For instance, in
+the MPEG-7 standard, texture browsing descriptors are defined and used
+that are based on Gabor filters as follows. A bank of Gabor filters with
+different preferred orientations and wavelength are applied to an image.
+Each of these filters gives as a result a two-dimensional array of the
+same size as the input image. The sum of all elements in one such array
+is a number that can be used as a descriptor of the input image
+regarding the presence of edges of the corresponding orientation and
+spatial frequency. In the MPEG-7 standard 6 preferred orientations and 5
+preferred wavelengths are used, resulting in a bank of 30 filters that
+are used to compute the values of 30 descriptors. These descriptors are
+used for browsing in image data bases.
+<p>
+For texture analysis, the elements of the two-dimensional array that is
+output by a Gabor filter are not summed together. Rather, the outputs of
+the different Gabor filters used in a filter bank for a given image
+position (pixel) are combined in a vector that is associated with the
+considered pixel. The number of elements in that vector is equal to the
+number of filters in the bank. The vectors associated with the different
+pixels can be used, for instance, for segmentation. For further
+information on this, see <a href="edgedetection_params.html#references"
+target="_blank">references</a> [4] and [5].
+<p>
+Below we give an example of how to use the program to compute the above
+mentioned outputs of Gabor energy filters for six preferred orientations
+and one preferred wavelength. To compute outputs for a different
+wavelength, the steps given below have to be repeated for each
+wavelength value that is needed.
+
+Select the following <a href="edgedetection_params.html#params"
+target="_blank">parameter</a> values:
+<ul>
+ <li>Input image = synthetic1.png (or another image from the list)
+ <li>Wavelength = 8 ; Orientation(s) (deg.) = 0, 30, 60, 90, 120, 150 ;
+Phase offset(s) (deg.) = 0, 90 ; Aspect Ratio = 0.5 ; Bandwidth = 1 ;
+Number of orientations = blank (not used)  <li>Enable HWR = not checked
+ <li>Superposition of phases = L2 norm
+ <li>Select inhibition type = No surround inhibition
+ <li>Enable thinning = not checked ; Enable hysteresis thresholding =
+not checked
+</ul>
+
+After you press the button 'update view' the outputs of the above six
+Gabor filters will be computed and their maximum value (per pixel) will
+be displayed in the output window. Now you can select one by one each of
+the preferred orientations used (by using the select window at the
+bottom of the page and pressing the button 'change orientation') and
+visualize and store the outputs of the filters separately.
+
+
+<hr>
+<table width="100%">
+  <tr><td><em>Last changed: 2008-07-03</em></td>
+</tr>
+</table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4885602-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>
