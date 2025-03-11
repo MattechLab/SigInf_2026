@@ -9,7 +9,7 @@ Welcome to the DFT Lab! Follow these steps to get started:
    git clone https://github.com/MattechLab/SigInf_2025.git
    ```
 2. Visit [Google Colab](https://colab.research.google.com) in your web browser.
-3. Drag and drop the file lab_DFT.ipynb into the Google Colab interface to open the notebook.
+3. File->Upload Notebook->Drag and drop the file lab_DFT.ipynb into the Google Colab interface to open the notebook.
 
 
 
