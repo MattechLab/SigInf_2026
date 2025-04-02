@@ -25,8 +25,9 @@ hold on;
 
 % Add color bar with a smaller width
 c = colorbar;
-axis([0 255]); % Set color bar range for grayscale intensity
-set(c, 'Position', [0.92, 0.1, 0.02, 0.8]); % Adjust the color bar to be narrower and positioned
+clim([0 255]); % Set colormap limits to grayscale intensity range
+set(c, 'Position', [0.92, 0.1, 0.02, 0.8]); % Adjust the color bar position and width
+set(c, 'Limits', [0 255]); % Ensure the color bar displays the correct range
 
 % Set a larger step size and adjust font size for fewer displayed values
 step = 50; % Increase step size to display fewer values

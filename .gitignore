@@ -166,3 +166,4 @@ cython_debug/
 # Cours 8
 8-Image-Processing/2-Image-Segmentation/Lab/solution/
 8-Image-Processing/2-Image-Segmentation/Lab/solution.zip
+*.asv
