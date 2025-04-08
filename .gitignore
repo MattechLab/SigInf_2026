@@ -164,7 +164,9 @@ cython_debug/
 .DS_Store
 
 # Cours 8
-8-Image-Processing/2-Image-Segmentation/Lab/solution/
-8-Image-Processing/2-Image-Segmentation/Lab/solution.zip
+8-Image-Processing/2-Image-Segmentation/Lab/matlab/solution/
+8-Image-Processing/2-Image-Segmentation/Lab/matlab/solution.zip
 *.asv
 8-Image-Processing/1-Image-Processing/image_processing_solution.ipynb
+8-Image-Processing/2-Image-Segmentation/Lab/python/solution/
+8-Image-Processing/2-Image-Segmentation/Lab/python/solution.zip
