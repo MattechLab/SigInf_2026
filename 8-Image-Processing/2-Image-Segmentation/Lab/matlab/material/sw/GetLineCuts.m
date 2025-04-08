@@ -12,7 +12,7 @@ Row = size(I,1);
 Col = size(I,2);
 LineCuts = [];
 NumLines = length(rhos);
-for i = 1:NumLines
+for i = 1:NumLines  
     coor_hom = Pol2Hom(thetas(i), rhos(i), 0);         % From polar to homogeneous coordinates
     PuntosCorte = GetImageCut(coor_hom,Row,Col);       % cut points with the image limits
     if (PuntosCorte(1) == -1), continue; end           % If there are not enought cut points the line is not valid. We go to the next one
