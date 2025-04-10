@@ -1,0 +1,32 @@
+%% Edge threshold 1 
+close all; clear; clc;
+addpath("sw/")
+I=imread('imgs/star.png');
+th=0.05;
+I_edge=SobelDetector(I,th);
+I=im2double(I);
+I_edge=double(I_edge);
+filt=fspecial('laplacian');
+I_lap=imfilter(I,filt);
+g=I_edge.*sign(I_lap);
+I_out=zeros(size(I,1),size(I,2));
+prevVal=0;
+val=0;
+for i=1:size(g,1)
+    for j=1:size(g,2)
+        if prevVal==1 && g(i,j)==-1 % we move the column, we hold the row 
+            val=1; % white 
+        elseif prevVal==-1 && g(i,j)==1
+            val=0; % black
+        end
+        prevVal=g(i,j);
+        I_out(i,j)=val;
+    end
+end
+result=ExploringRows(g);
+figure
+subplot(131),imshow(I), title('Original Image');
+subplot(132),imshow(I_out), title('Result');
+subplot(133),imshow(result),title('Exploring Rows');
+% figure,imshow(I_out), title('Result');
+
