@@ -1,0 +1,333 @@
+{
+  "AverageCalibrationError": [
+    0.84
+  ],
+  "CalibrationCount": 1,
+  "CalibrationLog": [
+    [
+      2897461,
+      ">>>>>>> CALIBRATION (HV5,P-CR) FOR RIGHT: <<<<<<<<<"
+    ],
+    [
+      2897462,
+      "Calibration points:"
+    ],
+    [
+      2897462,
+      "-27.0, -65.7         0,      0"
+    ],
+    [
+      2897462,
+      "-25.4, -88.8         0,  -2457"
+    ],
+    [
+      2897462,
+      "-30.1, -44.3         0,   2457"
+    ],
+    [
+      2897462,
+      "-66.9, -63.9     -3474,      0"
+    ],
+    [
+      2897462,
+      "-25.7, -63.1      3474,      0"
+    ],
+    [
+      2897462,
+      "eye check box: (L,R,T,B)\n\t  -71   -21   -93   -40"
+    ],
+    [
+      2897462,
+      "href cal range: (L,R,T,B)\n\t-5211  5211 -3686  3686"
+    ],
+    [
+      2897462,
+      "Cal coeff:(X=a+bx+cy+dxx+eyy,Y=f+gx+goaly+ixx+jyy)\n   5.882e-05  2108.2  215.51  50.438  2.8157 \n   4.4115e-05 -173.98  92.93 -4.4697 -0.037811"
+    ],
+    [
+      2897462,
+      "Prenormalize: offx, offy = -27.036 -65.685"
+    ],
+    [
+      2897462,
+      "Gains: cx:2965.506 lx:446.410 rx:5484.733"
+    ],
+    [
+      2897462,
+      "Gains: cy:590.000 ty:234.457 by:523.847"
+    ],
+    [
+      2897462,
+      "Resolution (upd) at screen center: X=0.1, Y=0.4"
+    ],
+    [
+      2897462,
+      "Gain Change Proportion: X: 11.286 Y: 1.234"
+    ],
+    [
+      2897462,
+      "X Nonlinearity Proportion too large"
+    ],
+    [
+      2897462,
+      "PCR gain ratio(x,y) = 3.534, 2.723"
+    ],
+    [
+      2897462,
+      "CR gain match(x,y) = 1.020, 1.020"
+    ],
+    [
+      2897462,
+      "Slip rotation correction OFF"
+    ],
+    [
+      2897464,
+      "CALIBRATION HV5 R RIGHT   GOOD"
+    ],
+    [
+      2917596,
+      "VALIDATION R ABORTED"
+    ],
+    [
+      3078125,
+      ">>>>>>> CALIBRATION (HV5,P-CR) FOR RIGHT: <<<<<<<<<"
+    ],
+    [
+      3078125,
+      "Calibration points:"
+    ],
+    [
+      3078125,
+      "-19.6, -46.0         0,      0"
+    ],
+    [
+      3078125,
+      "-14.0, -63.9         0,  -2457"
+    ],
+    [
+      3078125,
+      "-19.2, -29.4         0,   2457"
+    ],
+    [
+      3078125,
+      "-47.4, -46.1     -3474,      0"
+    ],
+    [
+      3078125,
+      "13.0, -42.1      3474,      0"
+    ],
+    [
+      3078125,
+      "eye check box: (L,R,T,B)\n\t  -53    19   -67   -26"
+    ],
+    [
+      3078126,
+      "href cal range: (L,R,T,B)\n\t-5211  5211 -3686  3686"
+    ],
+    [
+      3078126,
+      "Cal coeff:(X=a+bx+cy+dxx+eyy,Y=f+gx+goaly+ixx+jyy)\n   5.882e-05  115.78  15.846 -0.32132 -1.1114 \n   4.4115e-05 -8.2298  141.45 -0.27408  0.39737"
+    ],
+    [
+      3078126,
+      "Prenormalize: offx, offy = -19.595 -45.97"
+    ],
+    [
+      3078126,
+      "Gains: cx:103.408 lx:124.636 rx:87.897"
+    ],
+    [
+      3078126,
+      "Gains: cy:197.594 ty:141.689 by:188.276"
+    ],
+    [
+      3078126,
+      "Resolution (upd) at screen center: X=2.5, Y=1.3"
+    ],
+    [
+      3078126,
+      "Gain Change Proportion: X: 0.418 Y: 0.329"
+    ],
+    [
+      3078126,
+      "Gain Ratio (Gy/Gx) = 1.911"
+    ],
+    [
+      3078126,
+      "Cross-Gain Ratios: X=0.140, Y=0.061"
+    ],
+    [
+      3078126,
+      "PCR gain ratio(x,y) = 2.523, 2.037"
+    ],
+    [
+      3078126,
+      "CR gain match(x,y) = 1.020, 1.020"
+    ],
+    [
+      3078126,
+      "Slip rotation correction OFF"
+    ],
+    [
+      3078127,
+      "CALIBRATION HV5 R RIGHT   GOOD"
+    ],
+    [
+      3090473,
+      "VALIDATION HV5 R RIGHT GOOD ERROR 0.84 avg. 1.41 max  OFFSET 0.50 deg. -3.0,-13.0 pix."
+    ]
+  ],
+  "CalibrationResultOffset": [
+    0.5,
+    [
+      -3.0,
+      -13.0
+    ]
+  ],
+  "CalibrationResultOffsetUnits": [
+    "deg",
+    "pixels"
+  ],
+  "CalibrationResultQuality": [
+    "GOOD"
+  ],
+  "CalibrationType": "HV5",
+  "Columns": [
+    "eye1_x_coordinate",
+    "eye1_y_coordinate",
+    "eye1_pupil_size",
+    "eye1_pupil_x_coordinate",
+    "eye1_pupil_y_coordinate",
+    "eye1_href_x_coordinate",
+    "eye1_href_y_coordinate",
+    "fast_raw_x_velocity",
+    "screen_ppdeg_x_coordinate",
+    "screen_ppdeg_y_coordinate",
+    "timestamp",
+    "eye1_fixation",
+    "eye1_saccade",
+    "eye1_blink"
+  ],
+  "CornealReflectionThreshold": [
+    164
+  ],
+  "EyeTrackingMethod": "P-CR",
+  "LoggedMessages": [
+    [
+      3103176,
+      "NO Reply is disabled for function eyelink_cal_result"
+    ],
+    [
+      3119222,
+      "RECCFG CR 1000 2 0 R"
+    ],
+    [
+      3119222,
+      "ELCLCFG TOWER"
+    ],
+    [
+      3119222,
+      "ELCL_PCR_PARAM 5 3.0"
+    ]
+  ],
+  "MaximalCalibrationError": [
+    1.41
+  ],
+  "PupilFitMethod": "centroid",
+  "PupilFitMethodNumberOfParameters": 3,
+  "PupilThreshold": [
+    64
+  ],
+  "RecordedEye": "right",
+  "SamplingFrequency": 1000,
+  "ScreenAOIDefinition": [
+    "square",
+    [
+      0,
+      800,
+      0,
+      600
+    ]
+  ],
+  "StartTime": null,
+  "StopTime": null,
+  "ValidationErrors": [
+    [
+      "eye1",
+      0.57,
+      [
+        11.1,
+        -10.5
+      ]
+    ],
+    [
+      "eye1",
+      1.34,
+      [
+        -35.3,
+        -8.1
+      ]
+    ],
+    [
+      "eye1",
+      0.31,
+      [
+        -0.1,
+        8.3
+      ]
+    ],
+    [
+      "eye1",
+      1.37,
+      [
+        -30.7,
+        -21.0
+      ]
+    ],
+    [
+      "eye1",
+      1.41,
+      [
+        -4.2,
+        -37.9
+      ]
+    ]
+  ],
+  "ValidationPosition": [
+    [
+      "eye1",
+      [
+        400,
+        300
+      ]
+    ],
+    [
+      "eye1",
+      [
+        400,
+        51
+      ]
+    ],
+    [
+      "eye1",
+      [
+        400,
+        549
+      ]
+    ],
+    [
+      "eye1",
+      [
+        48,
+        300
+      ]
+    ],
+    [
+      "eye1",
+      [
+        752,
+        300
+      ]
+    ]
+  ]
+}
